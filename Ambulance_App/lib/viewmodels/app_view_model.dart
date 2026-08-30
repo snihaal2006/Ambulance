@@ -441,6 +441,8 @@ class AppViewModel extends ChangeNotifier {
     
     _activeCase!.vitals = vitals;
     
+    final bool isCritical = ['CARDIAC_EMERGENCY', 'TRAUMA_ACCIDENT', 'MAJOR_TRAUMA', 'ACUTE_STROKE', 'SEVERE_BURNS', 'SEVERE_RESPIRATORY'].contains(_activeCase!.incidentType);
+    
     // Simulate how long patient can hold (Stability Window)
     int stability = 120;
     if (isCritical) {
