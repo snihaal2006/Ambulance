@@ -408,6 +408,7 @@ class AppViewModel extends ChangeNotifier {
         vitals['spo2'] = 89; // Low oxygen
         break;
       case 'TRAUMA_ACCIDENT':
+      case 'ROAD_ACCIDENT':
       case 'MAJOR_TRAUMA':
         vitals['hr'] = 130; 
         vitals['sys_bp'] = 75; // Hypotension from blood loss (shock)
