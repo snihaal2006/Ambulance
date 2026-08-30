@@ -266,6 +266,7 @@ class AppViewModel extends ChangeNotifier {
   void loginAndStartDuty({required String driverId, required String pin}) {
     driver.status = DriverStatus.onDuty;
     AudioHapticService.playAcknowledgeBeep();
+    _backendApiService?.updateAmbulanceStatus('AMB-1042', 'AVAILABLE');
     navigateTo(AppScreen.waiting);
     triggerDutyStartedToast();
   }
