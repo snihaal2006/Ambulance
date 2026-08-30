@@ -392,7 +392,7 @@ class EmergencyIntakeController {
       try {
           const req = await fetch('https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/emergencies', {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: { 'Content-Type': 'application/json', 'Bypass-Tunnel-Reminder': 'true' },
               body: JSON.stringify({
                   callerName: callerName,
                   callerPhone: callerPhone,
@@ -565,7 +565,7 @@ class EmergencyIntakeController {
 
     this.pollingInterval = setInterval(async () => {
       try {
-        const res = await fetch('https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/emergencies/active');
+        const res = await fetch('https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/emergencies/active', { headers: { 'Bypass-Tunnel-Reminder': 'true' } });
         if (res.ok) {
           const json = await res.json();
           const target = json.find(c => c.caseNumber === caseId);
