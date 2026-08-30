@@ -39,13 +39,14 @@ class AppViewModel extends ChangeNotifier {
   // Backend Integration
   BackendApiService? _backendApiService;
   
-  void setupBackendIntegration(BackendApiService service) {
+  void setupBackendIntegration(BackendApiService service, {Function(EmergencyCaseModel)? onEmergency}) {
     _backendApiService = service;
     _backendApiService?.startPolling('AMB-1042', (emergency) {
       // Avoid double-dispatching the same case
       if (_activeCase?.caseId != emergency.caseId) {
         setActiveCaseFromDispatch(emergency);
       }
+      if (onEmergency != null) onEmergency(emergency);
     });
   }
 

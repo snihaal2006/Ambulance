@@ -19,6 +19,7 @@ import 'viewmodels/app_view_model.dart';
 import 'data/services/backend_api_service.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'data/providers/dispatch_providers.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,7 +68,9 @@ class _MainMobileFrameState extends ConsumerState<MainMobileFrame> {
     _viewModel = AppViewModel();
     // Wait for first frame to read provider
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _viewModel.setupBackendIntegration(ref.read(backendApiProvider));
+      _viewModel.setupBackendIntegration(ref.read(backendApiProvider), onEmergency: (e) {
+        ref.read(currentEmergencyProvider.notifier).state = e;
+      });
     });
   }
 
