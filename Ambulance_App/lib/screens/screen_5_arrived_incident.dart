@@ -143,6 +143,24 @@ class Screen5ArrivedIncident extends StatelessWidget {
                         color: AppColors.textSlate200,
                       ),
                     ),
+                    const Divider(height: 14, color: Color(0xFF334155)),
+                    Text(
+                      'REPORTED CONDITION',
+                      style: AppTheme.monoStyle(
+                        fontSize: 9.5,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.textSubtle,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      c?.complaint ?? 'No condition reported',
+                      style: AppTheme.plusJakartaStyle(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.amberWarning,
+                      ),
+                    ),
                   ],
                 ),
               ),
