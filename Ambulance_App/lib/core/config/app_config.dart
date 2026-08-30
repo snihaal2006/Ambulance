@@ -1,3 +1,3 @@
 class AppConfig {
-  static const String apiBaseUrl = 'https://closure-fantastic-pos-coleman.trycloudflare.com/api';
+  static const String apiBaseUrl = 'https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api';
 }

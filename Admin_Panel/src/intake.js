@@ -390,7 +390,7 @@ class EmergencyIntakeController {
       
       let backendCaseId = null;
       try {
-          const req = await fetch('https://closure-fantastic-pos-coleman.trycloudflare.com/api/emergencies', {
+          const req = await fetch('https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/emergencies', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -408,7 +408,7 @@ class EmergencyIntakeController {
           if(!req.ok) throw new Error('Backend failed');
           const res = await req.json();
           backendCaseId = res.caseNumber;
-          await fetch('https://closure-fantastic-pos-coleman.trycloudflare.com/api/emergencies/' + res.id + '/dispatch', { method: 'POST', headers: { 'Bypass-Tunnel-Reminder': 'true' } });
+          await fetch('https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/emergencies/' + res.id + '/dispatch', { method: 'POST', headers: { 'Bypass-Tunnel-Reminder': 'true' } });
       } catch(err) {
           alert('BACKEND UNAVAILABLE');
           return;
@@ -565,7 +565,7 @@ class EmergencyIntakeController {
 
     this.pollingInterval = setInterval(async () => {
       try {
-        const res = await fetch('https://closure-fantastic-pos-coleman.trycloudflare.com/api/emergencies/active');
+        const res = await fetch('https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/emergencies/active');
         if (res.ok) {
           const json = await res.json();
           const target = json.find(c => c.caseNumber === caseId);

@@ -59,7 +59,7 @@ class PulseRouterAdminApp {
   startCloudSync() {
     setInterval(async () => {
       try {
-        const resAmb = await fetch('https://closure-fantastic-pos-coleman.trycloudflare.com/api/ambulances');
+        const resAmb = await fetch('https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/ambulances');
         if (resAmb.ok) {
           const liveAmbs = await resAmb.json();
           const newFleet = [];
@@ -88,7 +88,7 @@ class PulseRouterAdminApp {
         }
 
         // Fetch Hospitals
-        const resHosp = await fetch('https://closure-fantastic-pos-coleman.trycloudflare.com/api/hospitals');
+        const resHosp = await fetch('https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/hospitals');
         if (resHosp.ok) {
           const liveHosp = await resHosp.json();
           const newHosp = [];
@@ -122,7 +122,7 @@ class PulseRouterAdminApp {
           }
         }
         
-        const resCases = await fetch('https://closure-fantastic-pos-coleman.trycloudflare.com/api/emergencies/active');
+        const resCases = await fetch('https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/emergencies/active');
         if (resCases.ok) {
           const liveCases = await resCases.json();
           const newCases = [];
@@ -336,7 +336,7 @@ class PulseRouterAdminApp {
   }
 
   simulateHospitalSaturation(hospitalId) {
-    fetch(`https://closure-fantastic-pos-coleman.trycloudflare.com/api/hospitals/${hospitalId}/status`, {
+    fetch(`https://craft-pediatric-attribute-diagnostic.trycloudflare.com/api/hospitals/${hospitalId}/status`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ erStatus: 'DIVERT', icuBeds: 0 })
