@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PULSE ROUTER | Control Room</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Leaflet JS CDN -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Custom CSS (Clean White Theme) -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased select-none overflow-x-hidden min-h-screen flex flex-col font-sans">
+
+  <!-- MAIN APP SHELL -->
+  <div id="appShell" class="flex-1 flex flex-col min-h-screen">
+    
+    <!-- TOP COMMAND BAR -->
+    <header class="h-14 bg-white border-b border-slate-200 px-5 flex items-center justify-between sticky top-0 z-40 shrink-0">
+      
+      <!-- Left: Logo & Identity -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-rose-600 text-white flex items-center justify-center font-mono font-bold text-xs shadow-sm shadow-rose-600/30">
+          PR
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-mono font-bold text-sm text-slate-900 tracking-tight">PULSE ROUTER</span>
+            <span class="text-[10px] font-mono font-bold bg-rose-50 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-full uppercase">
+              CONTROL ROOM
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Key Operational Status Indicators -->
+      <div class="hidden md:flex items-center gap-6 text-xs font-mono">
+        <div class="flex items-center gap-1.5 text-slate-600">
+          <span class="text-slate-400">FLEET:</span>
+          <strong id="topAmbOnlineCount" class="text-slate-900 font-bold">24 ONLINE</strong>
+        </div>
+
+        <div class="flex items-center gap-1.5 text-slate-600">
+          <span class="text-slate-400">ACTIVE:</span>
+          <strong id="topActiveCasesCount" class="text-rose-600 font-black">04</strong>
+        </div>
+
+        <div class="flex items-center gap-1.5 text-slate-600">
+          <span class="text-slate-400">HOSPITALS:</span>
+          <strong class="text-sky-600">● 9 SYNCED</strong>
+        </div>
+      </div>
+
+      <!-- Right: Action & Clock -->
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="window.PulseRouter.triggerIncomingCall()" 
+          class="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold text-xs font-mono uppercase rounded-lg shadow-sm shadow-rose-600/20 transition flex items-center gap-1.5">
+          <span>🚨</span>
+          <span>INTAKE EMERGENCY</span>
+        </button>
+
+        <div class="bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 font-mono text-xs text-slate-800 font-bold">
+          <span id="topLiveClock">15:15:00</span>
+        </div>
+      </div>
+
+    </header>
+
+    <!-- WORKSPACE: SIDEBAR + MAIN AREA -->
+    <div class="flex-1 flex overflow-hidden">
+      
+      <!-- SIMPLE CLEAN LEFT SIDEBAR (No unnecessary options) -->
+      <aside class="w-48 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 p-3 z-30 select-none font-mono">
+        
+        <nav class="space-y-1.5 text-xs">
+          
+          <div class="px-2.5 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">NAVIGATION</div>
+
+          <button type="button" onclick="window.PulseRouter.navigate('overview')" data-section="overview"
+            class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-rose-50 text-rose-700 font-bold border border-rose-200 text-left transition">
+            <span>🗺️</span> Live Map
+          </button>
+
+          <button type="button" onclick="window.PulseRouter.navigate('dispatch')" data-section="dispatch"
+            class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-left transition">
+            <span>🚨</span> Active Dispatch
+          </button>
+
+          <button type="button" onclick="window.PulseRouter.navigate('hospitals')" data-section="hospitals"
+            class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-left transition">
+            <span>🏥</span> Hospitals
+          </button>
+
+          <button type="button" onclick="window.PulseRouter.navigate('history')" data-section="history"
+            class="nav-btn w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 text-left transition">
+            <span>📋</span> History
+          </button>
+
+        </nav>
+
+        <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-[11px] text-center text-slate-500 font-bold">
+          TERMINAL: CR-01
+        </div>
+
+      </aside>
+
+      <!-- CONTENT AREA -->
+      <main class="flex-1 bg-slate-50 p-3.5 lg:p-4 overflow-y-auto overflow-x-hidden min-h-[calc(100vh-56px)]">
+        <div id="mainContentArea" class="max-w-7xl mx-auto"></div>
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- FLOATING INTAKE & ALERTS -->
+  <div id="incomingCallAlertContainer" class="hidden"></div>
+  <div id="emergencyIntakeModal" class="hidden"></div>
+  
+  <!-- AUTOMATIC DISPATCH REPORT POP-UP MODAL -->
+  <div id="dispatchReportModal" class="hidden"></div>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

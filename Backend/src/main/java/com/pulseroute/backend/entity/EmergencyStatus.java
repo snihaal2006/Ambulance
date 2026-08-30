@@ -1,0 +1,5 @@
+package com.pulseroute.backend.entity;
+
+public enum EmergencyStatus {
+    CREATED, DISPATCHED, ACCEPTED, EN_ROUTE, ARRIVED, PATIENT_ONBOARD, HOSPITAL_SELECTED, EN_ROUTE_TO_HOSPITAL, COMPLETED, CANCELLED
+}

@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap');
+
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --bg-app: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-surface: #F1F5F9;
+
+  --border-light: #E2E8F0;
+  --border-subtle: #CBD5E1;
+
+  --color-emergency: #E11D48;
+  --color-green: #10B981;
+  --color-amber: #F59E0B;
+  --color-blue: #0284C7;
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.font-mono {
+  font-family: var(--font-mono) !important;
+}
+
+/* Crisp Clean Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+/* Leaflet Map Theme - Contained strictly below headers and modals */
+.leaflet-container {
+  background: #F8FAFC !important;
+  font-family: var(--font-sans) !important;
+  z-index: 1 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 10 !important;
+}
+
+.leaflet-pane {
+  z-index: 5 !important;
+}
+
+.leaflet-popup-pane {
+  z-index: 20 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #FFFFFF !important;
+  color: #0F172A !important;
+  border-radius: 12px !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+  padding: 0 !important;
+}
+
+.leaflet-popup-tip {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+}
+
+.leaflet-popup-content {
+  margin: 10px 12px !important;
+  line-height: 1.4 !important;
+}
+
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Rapido Vehicle Marker */
+.vehicle-marker-container {
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.15));
+}
+
+.vehicle-marker-container:hover {
+  transform: scale(1.15);
+  z-index: 100 !important;
+}
+
+/* Pulse for Emergency Pin */
+@keyframes emergencyPing {
+  0% { transform: scale(0.95); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.85; }
+  100% { transform: scale(0.95); opacity: 1; }
+}
+
+.emergency-pin-pulse {
+  animation: emergencyPing 1.8s infinite ease-in-out;
+}
+
+/* Animated Route */
+.animated-route-line {
+  stroke-dasharray: 6, 6;
+  animation: dashRoad 1.2s linear infinite;
+}
+
+@keyframes dashRoad {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
